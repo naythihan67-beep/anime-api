@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [{ "src": "api/index.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "api/index.js" }]
+}
+```
+
+---
+
+**`.gitignore`**
+```
+node_modules
+.env
+```
+
+---
+
+**`.env`** — leave this for now, we'll fill it in after TiDB is set up:
+```
+TIDB_HOST=
+TIDB_PORT=4000
+TIDB_USER=
+TIDB_PASSWORD=
+TIDB_DATABASE=anime_db
