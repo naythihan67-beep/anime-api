@@ -70,18 +70,18 @@ router.post('/:id/comments', async (req, res) => {
 });
 
 // Login proxy
+// Simple login
 router.post('/login', async (req, res) => {
-  try {
-    const response = await fetch('https://www.melivecode.com/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(req.body),
-    });
-    const data = await response.json();
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  const { username, password } = req.body;
+  // Demo users
+  const users = [
+    { id: 1, fname: 'Karn', lname: 'Yong', username: 'karn.yong@melivecode.com', password: 'melivecode', avatar: 'https://www.melivecode.com/users/1.png' },
+    { id: 2, fname: 'Ivy', lname: 'Cal', username: 'ivy.cal@melivecode.com', password: 'melivecode', avatar: 'https://www.melivecode.com/users/2.png' },
+  ];
+  const user = users.find(u => u.username === username && u.password === password);
+  if (!user) return res.status(401).json({ status: 'error', message: 'Login failed' });
+  const { password: _, ...userWithoutPassword } = user;
+  res.json({ status: 'ok', message: 'Logged in', user: userWithoutPassword });
 });
 
 module.exports = router;
